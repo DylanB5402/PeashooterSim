@@ -6,7 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
@@ -39,13 +41,20 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    Pose2d pose = new Pose2d();
+    Pose2d pose = new Pose2d(
+      new Translation2d(2, 2),
+      new Rotation2d()
+    );
     Pose3d hoodPose = new Pose3d(
       new Translation3d(0.16, -0.085, 0.4),
       // roll -25 to 5
-      new Rotation3d(Math.toRadians(5),Math. toRadians(0), Math.toRadians(0))
+      new Rotation3d(Math.toRadians(-25),Math. toRadians(0), Math.toRadians(0))
     );
-    Pose3d intakePose = new Pose3d();
+    Pose3d intakePose = new Pose3d(
+      new Translation3d(-0.25, 0, 0.21),
+      // pitch 0 to 120
+      new Rotation3d(Math.toRadians(0),Math.toRadians(0), Math.toRadians(0))
+    );
     simPosePublisher.set(pose);
     componentPosesPublisher.set(new Pose3d[] {hoodPose, intakePose});
   }
